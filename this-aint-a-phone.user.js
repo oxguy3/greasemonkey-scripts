@@ -25,6 +25,11 @@
             destination = loc.href.replace(/\/\/mobile\.nytimes\.com/i, '//www.nytimes.com');
         }
 
+        // Twitter
+        if (loc.host == 'mobile.twitter.com') {
+            destination = loc.href.replace(/\/\/mobile\.twitter\.com/i, '//twitter.com');
+        }
+
         // Wikipedia
         if (loc.host.endsWith('.m.wikipedia.org')) {
             destination = loc.href.replace(/\.m\.wikipedia\.org/i, '.wikipedia.org');
