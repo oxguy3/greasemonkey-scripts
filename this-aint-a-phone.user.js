@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         This Ain't A Phone
 // @namespace    https://schiff.io
-// @version      3
+// @version      4
 // @description  Automatically redirect from mobile webpages to the non-mobile equivalent
 // @author       Hayden Schiff (oxguy3)
-// @match        *://*.m.wikipedia.org/*
 // @match        *://mobile.nytimes.com/*
+// @match        *://mobile.twitter.com/*
+// @match        *://*.m.wikipedia.org/*
 // @match        *://m.xkcd.com/*
 // @grant        none
 // @run-at       document-start
