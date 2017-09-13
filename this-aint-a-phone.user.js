@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         This Ain't A Phone
 // @namespace    https://schiff.io
-// @version      4
+// @version      5
 // @description  Automatically redirect from mobile webpages to the non-mobile equivalent
 // @author       Hayden Schiff (oxguy3)
+// @match        *://m.facebook.com/*
 // @match        *://mobile.nytimes.com/*
 // @match        *://mobile.twitter.com/*
 // @match        *://*.m.wikipedia.org/*
@@ -20,6 +21,11 @@
     // Returns: string of new URL, or false if no match
     function checkLocation(loc) {
         var destination = false;
+
+        // Facebook
+        if (loc.host == 'm.facebook.com') {
+            destination = loc.href.replace(/\/\/m\.facebook\.com/i, '//www.facebook.com');
+        }
 
         // New York Times
         if (loc.host == 'mobile.nytimes.com') {
