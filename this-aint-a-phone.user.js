@@ -1,13 +1,24 @@
 // ==UserScript==
 // @name         This Ain't A Phone
 // @namespace    https://schiff.io
-// @version      5
+// @version      6
 // @description  Automatically redirect from mobile webpages to the non-mobile equivalent
 // @author       Hayden Schiff (oxguy3)
 // @match        *://m.facebook.com/*
 // @match        *://mobile.nytimes.com/*
 // @match        *://mobile.twitter.com/*
+// @match        *://m.mediawiki.org/*
+// @match        *://*.m.wikibooks.org/*
+// @match        *://m.wikidata.org/*
+// @match        *://*.m.wikimedia.org/*
+// @match        *://*.m.wikinews.org/*
 // @match        *://*.m.wikipedia.org/*
+// @match        *://*.m.wikiquote.org/*
+// @match        *://m.wikisource.org/*
+// @match        *://*.m.wikisource.org/*
+// @match        *://*.m.wikiversity.org/*
+// @match        *://*.m.wikivoyage.org/*
+// @match        *://*.m.wiktionary.org/*
 // @match        *://m.xkcd.com/*
 // @grant        none
 // @run-at       document-start
@@ -20,34 +31,47 @@
     // Params: loc: window.location
     // Returns: string of new URL, or false if no match
     function checkLocation(loc) {
-        var destination = false;
 
-        // Facebook
-        if (loc.host == 'm.facebook.com') {
-            destination = loc.href.replace(/\/\/m\.facebook\.com/i, '//www.facebook.com');
+        // simple hostname replacement rules
+        var hostRules = [
+            [ 'm.facebook.com', 'www.facebook.com' ],
+            [ 'm.mediawiki.org', 'www.mediawiki.org' ],
+            [ 'mobile.nytimes.com', 'www.nytimes.com' ],
+            [ 'mobile.twitter.com', 'twitter.com' ],
+            [ 'm.wikidata.org', 'www.wikidata.org' ],
+            [ 'm.wikisource.org', 'www.wikisource.org' ],
+            [ 'm.xkcd.com', 'xkcd.com' ]
+        ];
+
+        // shared logic for sites that only require a changed hostname
+        for (var i = 0; i < hostRules.length; i++) {
+            var rule = hostRules[i];
+            if (loc.host == rule[0]) {
+                return loc.href.replace('//'+rule[0], '//'+rule[1]);
+            }
         }
 
-        // New York Times
-        if (loc.host == 'mobile.nytimes.com') {
-            destination = loc.href.replace(/\/\/mobile\.nytimes\.com/i, '//www.nytimes.com');
+        // special logic for Wikimedia sites (too many subdomains to list individually)
+        var wikimediaHosts = [
+            'wikipedia.org',
+            'wikibooks.org',
+            'wikimedia.org',
+            'wikinews.org',
+            'wikiquote.org',
+            'wikisource.org',
+            'wikiversity.org',
+            'wikivoyage.org',
+            'wiktionary.org',
+        ];
+        for (var i = 0; i < wikimediaHosts.length; i++) {
+            var wmHost = wikimediaHosts[i];
+            if (loc.host.endsWith('.m.'+wmHost)) {
+                var newHost = loc.host.slice(0, 0 - ('m.'+wmHost).length) + wmHost;
+                return loc.protocol + "//" + newHost + ":" + loc.port + loc.pathname + loc.search + loc.hash;
+            }
         }
 
-        // Twitter
-        if (loc.host == 'mobile.twitter.com') {
-            destination = loc.href.replace(/\/\/mobile\.twitter\.com/i, '//twitter.com');
-        }
-
-        // Wikipedia
-        if (loc.host.endsWith('.m.wikipedia.org')) {
-            destination = loc.href.replace(/\.m\.wikipedia\.org/i, '.wikipedia.org');
-        }
-
-        // xkcd
-        if (loc.host == 'm.xkcd.com') {
-            destination = loc.href.replace(/\/\/m\.xkcd\.com/i, '//xkcd.com');
-        }
-
-        return destination;
+        return false;
     }
 
     var destination = checkLocation(window.location);
