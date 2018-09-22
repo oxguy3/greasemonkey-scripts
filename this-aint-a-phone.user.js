@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         This Ain't A Phone
 // @namespace    https://schiff.io
-// @version      7
+// @version      8
 // @description  Automatically redirect from mobile webpages to the non-mobile equivalent
 // @author       Hayden Schiff (oxguy3)
+// @match        *://m.dailykos.com/*
 // @match        *://m.facebook.com/*
 // @match        *://m.imdb.com/*
 // @match        *://mobile.nytimes.com/*
@@ -35,6 +36,7 @@
 
         // simple hostname replacement rules
         var hostRules = [
+            [ 'm.dailykos.com', 'www.dailykos.com' ],
             [ 'm.facebook.com', 'www.facebook.com' ],
             [ 'm.imdb.com', 'imdb.com' ],
             [ 'm.mediawiki.org', 'www.mediawiki.org' ],
