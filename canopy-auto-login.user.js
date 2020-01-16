@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Canopy auto-login
 // @namespace    https://www.schiff.io
-// @version      0.1
+// @version      0.1.1
 // @description  Automatically login to UC Blackboard
 // @author       Hayden Schiff
 // @match        https://canopy.uc.edu/*
