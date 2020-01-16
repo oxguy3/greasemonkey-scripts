@@ -16,7 +16,7 @@
 
     // Bb uses $ variable, so we have to declare it only locally
     jQuery.noConflict();
-    const $ = jQuery;
+    var $ = jQuery;
 
     GM_config.init({
         'id': 'MyConfig',
@@ -41,7 +41,7 @@
         $.ajax("/webapps/login/?action=relogin", {
             dataType: 'html',
             success: function(data, jqXHR, textStatus) {
-                let nonce = $(data).find("input[name='blackboard.platform.security.NonceUtil.nonce']").val();
+                var nonce = $(data).find("input[name='blackboard.platform.security.NonceUtil.nonce']").val();
 
                 // post credentials to login
                 $.ajax("/webapps/login/", {
@@ -74,7 +74,7 @@
                 tab_tab_group_id: "_1_1"
             },
             success: function (data, jqXHR, textStatus) {
-                const CHECK_STRING = "<!-- Username: guest<br /> -->";
+                var CHECK_STRING = "<!-- Username: guest<br /> -->";
                 callback(data.indexOf(CHECK_STRING) === -1);
             }
         });
