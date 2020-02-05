@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         This Ain't A Phone
 // @namespace    https://schiff.io
-// @version      9
+// @version      10
 // @description  Automatically redirect from mobile webpages to the non-mobile equivalent
 // @author       Hayden Schiff (oxguy3)
 // @match        *://m.dailykos.com/*
@@ -9,6 +9,7 @@
 // @match        *://m.imdb.com/*
 // @match        *://mobile.nytimes.com/*
 // @match        *://m.phys.org/*
+// @match        *://m.sweclockers.com/*
 // @match        *://mobile.twitter.com/*
 // @match        *://m.mediawiki.org/*
 // @match        *://*.m.wikibooks.org/*
@@ -43,6 +44,7 @@
             [ 'm.mediawiki.org', 'www.mediawiki.org' ],
             [ 'mobile.nytimes.com', 'www.nytimes.com' ],
             [ 'm.phys.org', 'phys.org' ],
+            [ 'm.sweclockers.com', 'sweclockers.com' ],
             [ 'mobile.twitter.com', 'twitter.com' ],
             [ 'm.wikidata.org', 'www.wikidata.org' ],
             [ 'm.wikisource.org', 'www.wikisource.org' ],
