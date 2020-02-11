@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Canopy auto-login
 // @namespace    https://www.schiff.io
-// @version      0.1.1
+// @version      0.2
 // @description  Automatically login to UC Blackboard
 // @author       Hayden Schiff
 // @match        https://canopy.uc.edu/*
@@ -84,7 +84,9 @@
         if (!isLoggedIn) {
             login();
             checkLogin(function(success) {
-                if (!success) {
+                if (success) {
+                    window.location.reload();
+                } else {
                     GM_config.open();
                 }
             });
